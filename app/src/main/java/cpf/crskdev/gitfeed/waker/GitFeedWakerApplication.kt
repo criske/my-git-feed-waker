@@ -1,6 +1,7 @@
 package cpf.crskdev.gitfeed.waker
 
 import android.app.Application
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
@@ -17,7 +18,7 @@ class GitFeedWakerApplication : Application() {
             30, TimeUnit.MINUTES,
             10, TimeUnit.MINUTES
         ).addTag(GitFeedWaker.ID).build()
-        manager.enqueue(wakeRequest)
+        manager.enqueueUniquePeriodicWork(GitFeedWaker.ID, ExistingPeriodicWorkPolicy.KEEP, wakeRequest)
     }
 
 
