@@ -15,7 +15,9 @@ interface GitFeedPing {
             connectTimeout = TimeUnit.MINUTES.toMillis(2).toInt()
         }
         connection.connect()
-        return  connection.responseCode
+        val responseCode = connection.responseCode
+        connection.disconnect()
+        return responseCode
     }
 
 }

@@ -12,13 +12,12 @@ class GitFeedWakerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        val manager = WorkManager.getInstance(this)
         val wakeRequest = PeriodicWorkRequestBuilder<GitFeedWaker>(
             30, TimeUnit.MINUTES,
             10, TimeUnit.MINUTES
-        ).build()
-        WorkManager
-            .getInstance(this)
-            .enqueue(wakeRequest)
+        ).addTag(GitFeedWaker.ID).build()
+        manager.enqueue(wakeRequest)
     }
 
 
